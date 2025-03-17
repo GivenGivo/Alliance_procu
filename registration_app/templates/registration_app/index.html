@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        
+        <h2>Alliance Procurement and Capacity Building Limited</h2>
+        <form id="registrationForm" enctype="multipart/form-data">
+            <input type="text" name="firstName" placeholder="First Name" required>
+            <input type="text" name="lastName" placeholder="Last Name" required>
+            <input type="text" name="nrc" placeholder="NRC" required>
+            <input type="text" name="organization" placeholder="Organization" required>
+            <input type="text" name="position" placeholder="Position" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <input type="email" name="email" placeholder="Email (Optional)">
+            <input type="file" name="picture" accept="image/*" required>
+           
+            <button type="submit">Register</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            fetch('/register', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("message").innerText = 
+                    "Thank you " + data.firstName + " for registering with Alliance Procurement and Capacity Building Limited. Your registration has been received.";
+            });
+        });
+    </script>
+</body>
+</html>
